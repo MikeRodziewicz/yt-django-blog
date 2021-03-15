@@ -8,6 +8,7 @@
     <a href="{% url 'blog-detail' post.pk %}">{{post.title}}</a>
     {{post.author}} <br>
     {{post.body}}
+    <a href="{% url 'update-post' post.pk %}">Edit</a>
 </li>
 {% endfor %}
 </ul>
