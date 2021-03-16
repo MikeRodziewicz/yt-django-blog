@@ -8,7 +8,7 @@ class HomeView(ListView):
     """Renders home page"""
     model = Post
     template_name = 'home.html'
-    ordering = ['-id']
+    ordering = ['-publication_date']
 
 
 class PostDetail(DetailView):
