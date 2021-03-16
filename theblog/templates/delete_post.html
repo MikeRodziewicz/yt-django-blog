@@ -3,6 +3,8 @@
 {% block title %} Delete a post {% endblock %}
 
 {% block content %}
+
+{%  if user.is_authenticated %}
 <h1>Delete: {{ post.title }}</h1>
 
 <div>
@@ -11,6 +13,8 @@
         <button class="btn btn-light">Delete</button>
     </form>
 </div>
+
+{% endif %}
 
 <a href="{% url 'home' %}" class="btn btn-success">Back</a>
  
