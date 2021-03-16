@@ -7,6 +7,7 @@
 <li>   
     <a href="{% url 'blog-detail' post.pk %}">{{post.title}}</a>
     {{ post.author }} <br>
+    {{ post.category }}
     {{ post.publication_date }} <br>
     {{ post.body|slice:":250" }}
     {%  if user.is_authenticated %}

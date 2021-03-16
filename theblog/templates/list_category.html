@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Categories</h1>
+<ul>
+{%  if user.is_authenticated %}
+    {% for post in object_list %}
+    <li>   
+        {{ post.name }}
+    
+    </li>
+    {% endfor %}
+    <a class="nav-link active" aria-current="page" href="{% url 'add_category' %}">Create a Category</a>
+{% endif %}
+</ul>
+<a href="{% url 'home' %}" class="btn btn-success">Back</a>
+
+
+{% endblock %}
