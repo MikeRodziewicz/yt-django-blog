@@ -1,13 +1,14 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 from .forms import PostForm, EditPostForm
-
+from django.urls import reverse_lazy
 
 class HomeView(ListView):
     """Renders home page"""
     model = Post
     template_name = 'home.html'
+    ordering = ['-id']
 
 
 class PostDetail(DetailView):
@@ -28,5 +29,13 @@ class UpdatePost(UpdateView):
     model = Post
     template_name = 'edit_post.html'
     form_class = EditPostForm
+
+
+class DeletePost(DeleteView):
+    """Deleting single post entry"""
+    model = Post
+    template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
+
 
 

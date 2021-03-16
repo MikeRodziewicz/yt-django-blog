@@ -11,6 +11,7 @@
         {% csrf_token %}
         {{ form.as_p}}
         <button class="btn btn-light">Update</button>
+        <a href="{% url 'delete-post' post.pk %}">Delete</a>
 
     </form>
 </div>
