@@ -48,3 +48,9 @@ class ListCategory(ListView):
     """Lists all available categories"""
     model = Category
     template_name = 'list_category.html'
+
+
+def CategoryView(request, cats):
+    """List of posts per category"""
+    category_posts = Post.objects.filter(category=cats)
+    return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
