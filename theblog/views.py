@@ -4,12 +4,20 @@ from .models import Post, Category
 from .forms import PostForm, EditPostForm
 from django.urls import reverse_lazy
 
+
+#TODO copy the context manager to other views. 
 class HomeView(ListView):
     """Renders home page"""
     model = Post
     template_name = 'home.html'
     ordering = ['-publication_date']
 
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(HomeView, self).get_context_data(*args, **kwargs)
+        context['cat_menu'] = cat_menu
+        return context
+   
 
 class PostDetail(DetailView):
     """Renders details view of a post"""
@@ -51,6 +59,11 @@ class ListCategory(ListView):
 
 
 def CategoryView(request, cats):
-    """List of posts per category"""
+    """View of posts per category"""
     category_posts = Post.objects.filter(category=cats.replace('-',' ').title())
     return render(request, 'categories.html', {'cats':cats.title().replace('-',' '), 'category_posts':category_posts})
+
+def CategoryList(request):
+    """List all categories"""
+    cat_menu_list = Category.objects.all()
+    return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
