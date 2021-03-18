@@ -18,8 +18,17 @@
 <br>
 <form action="{% url 'like-post' post.pk %}" method="POST">
     {% csrf_token %}
+    {% if user.is_authenticated %}
+    {% if liked %}
+    <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-danger btn-sm">Unlike</button>
+    {{ total_likes }} Likes
+    {% else %}
     <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
     {{ total_likes }} Likes
+    {% endif %}
+    {% else %}
+    <p>you must be logged in to like this</p>
+    {% endif %}
 </form>
 
  
