@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post, Category
 from .forms import PostForm, EditPostForm
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponseRedirect
 
 
 #TODO copy the context manager to other views. 
@@ -23,6 +24,15 @@ class PostDetail(DetailView):
     """Renders details view of a post"""
     model = Post
     template_name = 'post_detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        cat_menu = Category.objects.all()
+        context = super(PostDetail, self).get_context_data(*args, **kwargs)
+        likes = get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = likes.total_likes()
+        context['cat_menu'] = cat_menu
+        context['total_likes'] = total_likes
+        return context
     
 
 class AddPost(CreateView):
@@ -72,3 +82,9 @@ def CategoryList(request):
     """List all categories"""
     cat_menu_list = Category.objects.all()
     return render(request, 'category_list.html', {'cat_menu_list':cat_menu_list})
+
+def LikePost(request, pk):
+    """Like the post function"""
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user )
+    return HttpResponseRedirect(reverse('blog-detail', args=[str(pk)]))
