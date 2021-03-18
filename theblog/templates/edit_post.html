@@ -5,6 +5,8 @@
 {% block content %}
 <h1>Change or Update</h1>
 {%  if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+   
 <div>
     <form method="POST">
         
@@ -15,6 +17,9 @@
 
     </form>
 </div>
+    {% else%}
+    <p>You have no permisson to modify this post</p>
+    {% endif %}
 {% endif %}
 <a href="{% url 'home' %}" class="btn btn-success">Back</a>
  
