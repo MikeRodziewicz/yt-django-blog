@@ -9,7 +9,7 @@
     {{ post.author }} <br>
     <a href="{% url 'category' post.category|slugify|title %}">{{ post.category }}</a>
     {{ post.publication_date }} <br>
-    {{ post.body|slice:":250" }}
+    {{ post.snippet }}
     {%  if user.is_authenticated %}
         {% if user.id == post.author.id %}
             <a href="{% url 'update-post' post.pk %}">Edit</a>
