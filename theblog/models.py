@@ -19,6 +19,7 @@ class Category(models.Model):
 class Post(models.Model):
     """Model for blog posts"""
     title = models.CharField(max_length=256)
+    header_image = models.ImageField(null=True, blank=True, upload_to='images/')
     title_tag = models.CharField(max_length=256, default="My Blog Post")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = RichTextField(blank=True, null=True)

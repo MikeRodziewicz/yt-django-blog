@@ -13,7 +13,7 @@ class PostForm(forms.ModelForm):
     """Form for creating posts"""
     class Meta:
         model = Post
-        fields = ('title', 'title_tag', 'category', 'body', 'snippet')
+        fields = ('title', 'title_tag', 'category', 'body', 'snippet', 'header_image')
 
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control'}),
@@ -28,7 +28,7 @@ class EditPostForm(forms.ModelForm):
     """Form for updating posts"""
     class Meta:
         model = Post
-        fields = ('title', 'title_tag','category', 'body', 'snippet')
+        fields = ('title', 'title_tag','category', 'body', 'snippet','header_image')
         widgets = {
             'title': forms.TextInput(attrs={'class':'form-control', 'placeholder':'something'}),
             'title_tag': forms.TextInput(attrs={'class':'form-control'}),
