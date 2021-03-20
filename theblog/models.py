@@ -5,6 +5,15 @@ from datetime import datetime, date
 from ckeditor.fields import RichTextField
 
 
+class Profile(models.Model):
+    """Extension of the User model"""
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio = RichTextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.user)
+
+
 class Category(models.Model):
     """Model for post categories"""
     name = models.CharField(max_length=255, default="Coding")
